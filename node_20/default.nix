@@ -2,7 +2,15 @@
   devShells.node_20 = (let
     fhs = pkgs.buildFHSEnv {
       name = "node-20-env";
-      targetPkgs = pkgs: with pkgs; [ gcc libtool nodejs_22 yarn ];
+      targetPkgs = pkgs:
+        with pkgs; [
+          gcc
+          libtool
+          nodejs_22
+          yarn
+          typescript-language-server
+          typescript
+        ];
       runScript = "bash";
       profile = ''
         export PATH=$(yarn global bin):$PATH  
