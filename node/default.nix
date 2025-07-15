@@ -1,5 +1,8 @@
 { pkgs, ... }: {
   devShells.node = (let
+    nodejs_prepare = pkgs.writeShellScript "nodejs_prepare"
+      (builtins.readFile ../lib/prepare_nodejs_shell.sh);
+
     fhs = pkgs.buildFHSEnv {
       name = "node-env";
       targetPkgs = pkgs:
@@ -13,11 +16,7 @@
         ];
       runScript = "bash";
       profile = ''
-        export npm_config_prefix=~/.node_modules
-        export PATH=$HOME/.node_modules/bin:$(yarn global bin):$PATH
-        npm install -g typescript
-        yarn global add typescript
-        yarn global add @quasar/cli
+        source ${nodejs_prepare} typescript @quasar/cli
       '';
     };
   in pkgs.stdenv.mkDerivation {
