@@ -14,7 +14,7 @@
           typescript-language-server
           typescript
         ];
-      runScript = "bash";
+      runScript = "zsh";
       profile = ''
         source ${nodejs_prepare} typescript @quasar/cli
       '';
